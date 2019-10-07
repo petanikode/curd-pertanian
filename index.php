@@ -9,7 +9,7 @@
 <?php
 
 // --- koneksi ke database
-$koneksi = mysqli_connect("localhost","root","kopi","pertanian") or die(mysqli_error());
+$koneksi = mysqli_connect("localhost","root","password","mylab_pertanian") or die(mysqli_error());
 
 // --- Fngsi tambah data (Create)
 function tambah($koneksi){
@@ -38,10 +38,25 @@ function tambah($koneksi){
 		<form action="" method="POST">
 			<fieldset>
 				<legend><h2>Tambah data</h2></legend>
-				<label>Nama tanaman <input type="text" name="nm_tanaman" /></label> <br>
-				<label>Hasil panen <input type="number" name="hasil" /> kg</label><br>
-				<label>Lama tanam <input type="number" name="lama" /> bulan</label> <br>
-				<label>Tanggal panen <input type="date" name="tgl_panen" /></label> <br>
+				<table>
+					<tr>
+						<td><label>Nama tanaman</label></td>
+						<td> <input type="text" name="nm_tanaman" /></td>
+					</tr>
+					<tr>
+						<td><label>Hasil Panen</label></td>
+						<td><input type="number" name="hasil" /></td>
+					</tr>
+					<tr>
+						<td>Lama Tanam</td>
+						<td><input type="number" name="lama" /></td>
+					</tr>
+					<tr>
+						<td>Tanggal Panen</td>
+						<td><input type="date" name="tgl_panen" /></td>
+					</tr>
+				</table>
+
 				<br>
 				<label>
 					<input type="submit" name="btn_simpan" value="Simpan"/>
@@ -129,13 +144,27 @@ function ubah($koneksi){
 			<hr>
 			
 			<form action="" method="POST">
-			<fieldset>
+			<fieldset>				
 				<legend><h2>Ubah data</h2></legend>
 				<input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
-				<label>Nama tanaman <input type="text" name="nm_tanaman" value="<?php echo $_GET['nama'] ?>"/></label> <br>
-				<label>Hasil panen <input type="number" name="hasil" value="<?php echo $_GET['hasil'] ?>"/> kg</label><br>
-				<label>Lama tanam <input type="number" name="lama" value="<?php echo $_GET['lama'] ?>"/> bulan</label> <br>
-				<label>Tanggal panen <input type="date" name="tgl_panen" value="<?php echo $_GET['tanggal'] ?>"/></label> <br>
+				<table>
+					<tr>
+						<td><label>Nama tanaman</label></td>
+						<td> <input type="text" name="nm_tanaman" value="<?php echo $_GET['nama'] ?>"/></td>
+					</tr>
+					<tr>
+						<td><label>Hasil Panen</label></td>
+						<td><input type="number" name="hasil" value="<?php echo $_GET['hasil'] ?>" /> kg</td>
+					</tr>
+					<tr>
+						<td>Lama Tanam</td>
+						<td><input type="number" name="lama" value="<?php echo $_GET['lama'] ?>"/> bulan</td>
+					</tr>
+					<tr>
+						<td>Tanggal Panen</td>
+						<td><input type="date" name="tgl_panen" value="<?php echo $_GET['tanggal'] ?>"/></td>
+					</tr>
+				</table>
 				<br>
 				<label>
 					<input type="submit" name="btn_ubah" value="Simpan Perubahan"/> atau <a href="index.php?aksi=delete&id=<?php echo $_GET['id'] ?>"> (x) Hapus data ini</a>!
