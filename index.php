@@ -3,13 +3,14 @@
 <head>
 	<title>CRUD Petani Kode</title>
 	<link rel="icon" href="http://www.petanikode.com/favicon.ico" />
+  	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 
 <?php
 
 // --- koneksi ke database
-$koneksi = mysqli_connect("localhost","root","kopi","pertanian") or die(mysqli_error());
+$koneksi = mysqli_connect("localhost","root","","pertanian") or die(mysqli_error());
 
 // --- Fngsi tambah data (Create)
 function tambah($koneksi){
