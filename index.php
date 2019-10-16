@@ -9,7 +9,12 @@
 <?php
 
 // --- koneksi ke database
-$koneksi = mysqli_connect("localhost","root","kopi","pertanian") or die(mysqli_error());
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "pertanian";
+	
+$koneksi = mysqli_connect($host, $user, $pass, $db) or die(mysqli_error());
 
 // --- Fngsi tambah data (Create)
 function tambah($koneksi){
