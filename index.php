@@ -5,21 +5,31 @@
 	<link rel="icon" href="http://www.petanikode.com/favicon.ico" />
 </head>
 <body>
-
+<form action="index.php" method="get">
+	<label>Cari :</label>
+	<input type="text" name="cari">
+	<input type="submit" value="Cari">
+</form>
+<?php 
+if(isset($_GET['cari'])){
+	$cari = htmlspecialchars($_GET['cari']);
+	echo "<b>Hasil pencarian : ".$cari."</b>";
+}
+?>
 <?php
 
 // --- koneksi ke database
-$koneksi = mysqli_connect("localhost","root","kopi","pertanian") or die(mysqli_error());
+$koneksi = mysqli_connect("localhost","root","","pertanian") or die(mysqli_error());
 
 // --- Fngsi tambah data (Create)
 function tambah($koneksi){
 	
 	if (isset($_POST['btn_simpan'])){
 		$id = time();
-		$nm_tanaman = $_POST['nm_tanaman'];
-		$hasil = $_POST['hasil'];
-		$lama = $_POST['lama'];
-		$tgl_panen = $_POST['tgl_panen'];
+		$nm_tanaman = htmlspecialchars($_POST['nm_tanaman']);
+		$hasil = htmlspecialchars($_POST['hasil']);
+		$lama = htmlspecialchars($_POST['lama']);
+		$tgl_panen = htmlspecialchars($_POST['tgl_panen']);
 		
 		if(!empty($nm_tanaman) && !empty($hasil) && !empty($lama) && !empty($tgl_panen)){
 			$sql = "INSERT INTO tabel_panen (id,nama_tanaman, hasil_panen, lama_tanam, tanggal_panen) VALUES(".$id.",'".$nm_tanaman."','".$hasil."','".$lama."','".$tgl_panen."')";
@@ -56,11 +66,13 @@ function tambah($koneksi){
 }
 // --- Tutup Fngsi tambah data
 
+// --- FUNGSI CARI
 
 // --- Fungsi Baca Data (Read)
+
 function tampil_data($koneksi){
-	$sql = "SELECT * FROM tabel_panen";
-	$query = mysqli_query($koneksi, $sql);
+	// $sql = "SELECT * FROM tabel_panen";
+	// $query = mysqli_query($koneksi, $sql);
 	
 	echo "<fieldset>";
 	echo "<legend><h2>Data Panen</h2></legend>";
@@ -74,7 +86,14 @@ function tampil_data($koneksi){
 			<th>Tanggal Panen</th>
 			<th>Tindakan</th>
 		  </tr>";
-	
+		  if(isset($_GET['cari'])){
+			$cari = $_GET['cari'];
+			$sql = "select * from tabel_panen where id like '%".$cari."%'";
+			$query =mysqli_query($koneksi, $sql);				
+		}else{
+			$sql ="select * from tabel_panen";
+			$query= mysqli_query($koneksi,$sql);		
+		}
 	while($data = mysqli_fetch_array($query)){
 		?>
 			<tr>
@@ -101,11 +120,11 @@ function ubah($koneksi){
 
 	// ubah data
 	if(isset($_POST['btn_ubah'])){
-		$id = $_POST['id'];
-		$nm_tanaman = $_POST['nm_tanaman'];
-		$hasil = $_POST['hasil'];
-		$lama = $_POST['lama'];
-		$tgl_panen = $_POST['tgl_panen'];
+		$id = htmlspecialchars($_POST['id']);
+		$nm_tanaman = htmlspecialchars($_POST['nm_tanaman']);
+		$hasil = htmlspecialchars($_POST['hasil']);
+		$lama = htmlspecialchars($_POST['lama']);
+		$tgl_panen = htmlspecialchars($_POST['tgl_panen']);
 		
 		if(!empty($nm_tanaman) && !empty($hasil) && !empty($lama) && !empty($tgl_panen)){
 			$perubahan = "nama_tanaman='".$nm_tanaman."',hasil_panen=".$hasil.",lama_tanam=".$lama.",tanggal_panen='".$tgl_panen."'";
